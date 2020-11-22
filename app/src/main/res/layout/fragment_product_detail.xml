@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="baseMlViewModel"
+            type="com.android.mercadolibre.meliappxv2.src.viewmodel.BaseMlViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- RecyclerViewProductImageHorizontal -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@color/white">
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewProductImageHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/product_image_item" />
+
+        </RelativeLayout>
+
+        <!-- ProductTitle, ProductPrice and ProductWarranty -->
+        <LinearLayout
+            android:id="@+id/linearLayoutDescripcion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="1dp"
+            android:background="@color/product_detail_color_background_generic">
+            
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="155dp"
+                android:layout_weight="1"
+                android:layout_margin="0dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="5dp"
+                    android:background="@color/teal_700">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_baseline_info_24"
+                        android:layout_centerHorizontal="true" />
+
+                    <!-- NameProduct, Price and Warranty -->
+                    <TextView
+                        android:id="@+id/txtViewProductName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif"
+                        android:text="@string/product_detail_product_title"
+                        android:textSize="16sp"
+                        android:layout_centerInParent="true"
+                        android:textColor="@color/black"/>
+
+                    <TextView
+                        android:id="@+id/txtViewProductPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif"
+                        android:text="@string/product_detail_product_price"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:layout_below="@+id/txtViewProductName"
+                        android:layout_centerInParent="true"
+                        android:textSize="19sp" />
+
+                    <TextView
+                        android:id="@+id/txtViewProductWarranty"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif"
+                        android:layout_below="@+id/txtViewProductPrice"
+                        android:text="@string/product_detail_product_warranty"
+                        android:layout_centerInParent="true"
+                        android:textColor="@color/black" />
+
+                </RelativeLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+            
+        </LinearLayout>
+
+        <!-- Description and ProgressBar -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="2dp"
+            android:background="@color/primary">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="2dp">
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutProgressBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent">
+
+                    <ProgressBar
+                        android:id="@+id/progressBarProductDetail"
+                        android:layout_width="match_parent"
+                        android:indeterminateDrawable="@drawable/progress_style_generic"
+                        android:layout_height="wrap_content"
+                        android:indeterminate="true"
+                        android:layout_gravity="center" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/txtViewProductCharacteristic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:textColor="@color/white"
+                    android:layout_centerInParent="true"
+                    android:text="@string/product_detail_product_description" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <!-- Product Detail -->
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewProductDetail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/primary"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/product_attributes_item" />
+
+    </LinearLayout>
+
+</layout>

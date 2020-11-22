@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">MeliAppXV2</string>
+
+    <string name="alert_dialog_onFailure_call_title">Se ha producido un error</string>
+    <string name="alert_dialog_onFailure_call_message">Por favor vuelva a intentarlo.</string>
+    <string name="alert_dialog_onFailure_call_accepts">Aceptar</string>
+    <string name="product_detail_product_title">Titulo del producto</string>
+    <string name="product_detail_product_price">"$ARG 123123123 "</string>
+    <string name="product_detail_product_warranty">Garantia del producto</string>
+    <string name="product_detail_product_description">Descripción</string>
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="product_search_fragment_subTitleML">Donde comprar y vender todo</string>
+    <string name="product_search_huawei">Huawei</string>
+    <string name="product_search_philips">Philips</string>
+    <string name="product_search_lg">LG</string>
+    <string name="product_search_hasbro">Hasbro</string>
+    <string name="product_search_mercado_pago_load_balance_phone">Recargá tu celular</string>
+    <string name="product_search_offer_load_balance_phone">50% OFF CON EL CUPÓN \'REC50\'</string>
+    <string name="product_search_summer">VERANO</string>
+    <string name="product_search_air">LO MEJOR EN CLIMATIZACIÓN</string>
+    <string name="product_search_information">This is a demo of Mercado Libre application, it is not the official application.</string>
+
+</resources>

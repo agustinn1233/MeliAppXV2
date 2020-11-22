@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="productAttribute"
+            type="com.android.mercadolibre.meliappxv2.src.model.ProductAttribute" />
+    </data>
+
+    <!-- Product attributes, show in RecyclerView characteristic -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="2dp"
+        app:cardElevation="2dp"
+        app:cardUseCompatPadding="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/txtViewProductDetailCharacteristicName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/product_detail_default_margin"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="sans-serif"
+                android:text="@{productAttribute.name}"
+                android:gravity="center"
+                android:textColor="@color/colorBlack"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtViewProductDetailCharacteristicAttribute"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/product_detail_default_margin"
+                android:text="@{productAttribute.value_name}"
+                android:gravity="center"
+                android:textColor="@color/primary"
+                android:fontFamily="sans-serif"
+                app:layout_constraintStart_toStartOf="@+id/txtViewProductDetailCharacteristicName"
+                app:layout_constraintTop_toBottomOf="@+id/txtViewProductDetailCharacteristicName" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</layout>
