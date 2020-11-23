@@ -11,7 +11,7 @@ class ProductImage(@field:SerializedName("id") val id: String, @field:Serialized
     companion object {
         @JvmStatic
         @BindingAdapter("imageListProduct")
-        fun loadImage(imageView: ImageView, imageURL: String?) {
+        fun loadProductImage(imageView: ImageView, imageURL: String?) {
             Glide.with(imageView.context)
                     .load(imageURL)
                     .transition(DrawableTransitionOptions.withCrossFade())

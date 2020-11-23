@@ -65,7 +65,7 @@ class Product {
             val formatter = DecimalFormat("###,###,##0.00")
             return formatter.format(amount.toString().toDouble())
         }
-
+        
         @JvmStatic
         @BindingAdapter("imageProduct")
         fun loadImage(imageView: ImageView, imageURL: String?) {

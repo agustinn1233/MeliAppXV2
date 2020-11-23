@@ -1,6 +1,6 @@
 package com.android.mercadolibre.meliappxv2.src.model
 
-import android.text.Html
+import com.android.mercadolibre.meliappxv2.src.tools.utils.Generic.fromHtml
 import com.google.gson.annotations.SerializedName
 
 class ProductDetail {
@@ -29,7 +29,7 @@ class ProductDetail {
     constructor()
 
     val priceFormatter: String
-        get() = Product.currencyFormat(Html.fromHtml(price))
+        get() = Product.currencyFormat(fromHtml(price))
 
     constructor(id: String?, title: String?, price: String?, warranty: String?, productImages: List<ProductImage>?, productAttributes: List<ProductAttribute>?) {
         this.id = id

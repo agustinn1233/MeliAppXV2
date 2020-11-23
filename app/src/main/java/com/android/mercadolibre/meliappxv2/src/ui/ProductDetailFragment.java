@@ -3,7 +3,6 @@ package com.android.mercadolibre.meliappxv2.src.ui;
 import android.annotation.SuppressLint;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -100,7 +99,7 @@ public class ProductDetailFragment extends Fragment {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
 
-        fragmentProductDetailBinding.txtViewProductName.setText(Html.fromHtml(baseMlViewModel.getProductDetail().title));
+        fragmentProductDetailBinding.txtViewProductName.setText(fromHtml(baseMlViewModel.getProductDetail().title));
         baseMlViewModel.getProductDetail().getPriceFormatter();
         fragmentProductDetailBinding.txtViewProductPrice.setText("$ " + baseMlViewModel.getProductDetail().getPriceFormatter());
         fragmentProductDetailBinding.txtViewProductWarranty.setText(baseMlViewModel.getProductDetail().warranty);
