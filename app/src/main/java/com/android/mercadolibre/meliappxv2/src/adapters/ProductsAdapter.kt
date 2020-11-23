@@ -1,5 +1,6 @@
 package com.android.mercadolibre.meliappxv2.src.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import com.android.mercadolibre.meliappxv2.src.model.Product
 import com.android.mercadolibre.meliappxv2.src.ui.ProductDetailFragment
 import com.android.mercadolibre.meliappxv2.src.viewmodel.BaseMlViewModel
 
+@Suppress("UNREACHABLE_CODE")
 class ProductsAdapter(private val baseMlViewModel: BaseMlViewModel, fragmentManager: FragmentManager) : RecyclerView.Adapter<ProductViewHolder>(), OnItemClickListener {
     private val products: List<Product>?
     private val fragmentManager: FragmentManager
@@ -27,7 +29,12 @@ class ProductsAdapter(private val baseMlViewModel: BaseMlViewModel, fragmentMana
     }
 
     override fun getItemCount(): Int {
-        return products?.size ?: 0
+        if (products?.size!! > 0) {
+            return products.size
+        } else {
+            return 0
+            Log.w("log_getProducts", "No se retornan articulos.")
+        }
     }
 
     override fun onItemClick(view: View?, position: Int) {

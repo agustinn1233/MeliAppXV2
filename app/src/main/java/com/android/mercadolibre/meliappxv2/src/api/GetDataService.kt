@@ -8,6 +8,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface GetDataService {
+    
     @GET("sites/MLA/search")
     fun productSearch(@Query("q") query: String?, @Query("total") total: Int?, @Query("offset") offset: Int?, @Query("limit") limit: Int?): Call<ProductSearch?>?
 

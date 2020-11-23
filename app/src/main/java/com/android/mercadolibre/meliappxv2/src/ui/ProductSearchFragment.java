@@ -2,7 +2,6 @@ package com.android.mercadolibre.meliappxv2.src.ui;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,11 +29,14 @@ import com.android.mercadolibre.meliappxv2.src.viewmodel.BaseMlViewModel;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.android.mercadolibre.meliappxv2.src.tools.utils.Constants.SEARCH_LIMIT_INT;
+import static com.android.mercadolibre.meliappxv2.src.tools.utils.Generic.fromHtml;
 
 public class ProductSearchFragment extends Fragment {
 
@@ -72,7 +74,7 @@ public class ProductSearchFragment extends Fragment {
                              Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        baseMlViewModel = new ViewModelProvider(getActivity(), new ViewModelProvider.NewInstanceFactory()).get(BaseMlViewModel.class);
+        baseMlViewModel = new ViewModelProvider(requireActivity(), new ViewModelProvider.NewInstanceFactory()).get(BaseMlViewModel.class);
         fragmentProductSearchBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_product_search, container, false);
         fragmentProductSearchBinding.setLifecycleOwner(this);
         linearLayoutManager = new LinearLayoutManager(getContext());
@@ -80,7 +82,7 @@ public class ProductSearchFragment extends Fragment {
         fragmentProductSearchBinding.recyclerViewProducts.setHasFixedSize(true);
 
         // Set DividerItemDecoration same to MercadoLibre.
-        fragmentProductSearchBinding.recyclerViewProducts.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        fragmentProductSearchBinding.recyclerViewProducts.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));
 
         // Using for LiveData
         final Observer<Boolean> newQueryProductSearch = aBoolean  -> {
@@ -160,26 +162,36 @@ public class ProductSearchFragment extends Fragment {
         baseMlViewModel.setNewQueryProductDetail(true);
 
         fragmentProductSearchBinding.ProductSearchView.setQuery(baseMlViewModel.getQuery(), false);
-        ProductsAdapter productsAdapter = new ProductsAdapter(baseMlViewModel, getActivity().getSupportFragmentManager());
+        ProductsAdapter productsAdapter = new ProductsAdapter(baseMlViewModel, requireActivity().getSupportFragmentManager());
         fragmentProductSearchBinding.recyclerViewProducts.setAdapter(productsAdapter);
     }
 
     private void getProducts() {
         fragmentProductSearchBinding.progressBarSearch.setVisibility(View.VISIBLE);
 
-        final Call<ProductSearch> searchListCall = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class).productSearch(baseMlViewModel.getQuery(), baseMlViewModel.getProductSearchResult().getPaging().getTotal(), baseMlViewModel.getProductSearchResult().getPaging().getOffset(), SEARCH_LIMIT_INT);
+        final Call<ProductSearch> searchListCall = Objects.requireNonNull(RetrofitClientInstance.getRetrofitInstance()).create(GetDataService.class).productSearch(baseMlViewModel.getQuery(), baseMlViewModel.getProductSearchResult().getPaging().getTotal(), baseMlViewModel.getProductSearchResult().getPaging().getOffset(), SEARCH_LIMIT_INT);
+        assert searchListCall != null;
         searchListCall.enqueue(new Callback<ProductSearch>() {
             @Override
             public void onResponse(@NotNull Call<ProductSearch> call, @NotNull Response<ProductSearch> response) {
-                if(response.isSuccessful() && response.body() != null) {
-                    baseMlViewModel.setProductSearchResult(response.body());
-                    ProductsAdapter productsAdapter = new ProductsAdapter(baseMlViewModel, getActivity().getSupportFragmentManager());
-                    fragmentProductSearchBinding.recyclerViewProducts.setAdapter(productsAdapter);
-                    fragmentProductSearchBinding.progressBarSearch.setVisibility(View.GONE);
-                    fragmentProductSearchBinding.featureMercadoPagoAdvertising.setVisibility(View.GONE);
-                    fragmentProductSearchBinding.featureBestSummerAirAdvertising.setVisibility(View.GONE);
-                    baseMlViewModel.setNewQueryProductList(false);
-                    Log.i("log_getProducts", "call isSuccessful");
+                if(response.isSuccessful() && response.body() != null)  {
+                    fragmentProductSearchBinding.recyclerViewProducts.setVisibility(View.VISIBLE);
+                    if(!response.body().getProducts().isEmpty()) {
+                        baseMlViewModel.setProductSearchResult(response.body());
+                        ProductsAdapter productsAdapter = new ProductsAdapter(baseMlViewModel, requireActivity().getSupportFragmentManager());
+                        fragmentProductSearchBinding.recyclerViewProducts.setAdapter(productsAdapter);
+                        fragmentProductSearchBinding.progressBarSearch.setVisibility(View.GONE);
+                        fragmentProductSearchBinding.featureMercadoPagoAdvertising.setVisibility(View.GONE);
+                        fragmentProductSearchBinding.featureBestSummerAirAdvertising.setVisibility(View.GONE);
+                        baseMlViewModel.setNewQueryProductList(false);
+                        Log.i("log_getProducts", "call isSuccessful");
+                    } else {
+                        Toast.makeText(requireActivity(), "No se encontraron productos para la busqueda.", Toast.LENGTH_SHORT).show();
+                        fragmentProductSearchBinding.progressBarSearch.setVisibility(View.GONE);
+                        fragmentProductSearchBinding.recyclerViewProducts.setVisibility(View.GONE);
+                        fragmentProductSearchBinding.featureMercadoPagoAdvertising.setVisibility(View.VISIBLE);
+                        fragmentProductSearchBinding.featureBestSummerAirAdvertising.setVisibility(View.VISIBLE);
+                    }
                 }
             }
 
@@ -191,10 +203,10 @@ public class ProductSearchFragment extends Fragment {
 
                 // Error to call, show AlertDialog from user.
                 new AlertDialog.Builder(
-                        getContext())
-                        .setTitle(Html.fromHtml(getString(R.string.alert_dialog_onFailure_call_title)))
-                        .setMessage(Html.fromHtml(getString(R.string.alert_dialog_onFailure_call_message)))
-                        .setPositiveButton(Html.fromHtml(getString(R.string.alert_dialog_onFailure_call_accepts)), null)
+                        requireContext())
+                        .setTitle(fromHtml(getString(R.string.alert_dialog_onFailure_call_title)))
+                        .setMessage(fromHtml(getString(R.string.alert_dialog_onFailure_call_message)))
+                        .setPositiveButton(fromHtml(getString(R.string.alert_dialog_onFailure_call_accepts)), null)
                         .setIcon(android.R.drawable.ic_dialog_alert) // Default icon to alert
                         .show();
             }

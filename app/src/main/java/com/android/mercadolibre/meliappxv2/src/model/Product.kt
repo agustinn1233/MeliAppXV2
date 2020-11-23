@@ -1,14 +1,15 @@
 package com.android.mercadolibre.meliappxv2.src.model
 
-import android.text.Html
 import android.text.Spanned
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.android.mercadolibre.meliappxv2.R
+import com.android.mercadolibre.meliappxv2.src.tools.utils.Generic.fromHtml
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.google.gson.annotations.SerializedName
 import java.text.DecimalFormat
+
 
 class Product {
     @JvmField
@@ -49,13 +50,14 @@ class Product {
         var freeShipping: String? = null
     }
 
-    val priceFormatter: String
-        get() = currencyFormat(Html.fromHtml(price))
+    // Using fromHtml to format (in class Generic)
+    val priceFormatter: String?
+        get() = fromHtml(price)?.let { currencyFormat(it) }
 
+    // Using fromHtml to format (in class Generic)
     @JvmName("getDescription1")
     fun getDescription(): String {
-        // Formateo el texto para mostrarlo
-        return Html.fromHtml(description).toString()
+        return fromHtml(description).toString()
     }
 
     companion object {

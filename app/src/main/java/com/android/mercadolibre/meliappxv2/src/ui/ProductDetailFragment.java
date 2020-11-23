@@ -1,5 +1,6 @@
 package com.android.mercadolibre.meliappxv2.src.ui;
 
+import android.annotation.SuppressLint;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.text.Html;
@@ -31,9 +32,12 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
+
+import static com.android.mercadolibre.meliappxv2.src.tools.utils.Generic.fromHtml;
 
 public class ProductDetailFragment extends Fragment {
 
@@ -66,7 +70,7 @@ public class ProductDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        baseMlViewModel = new ViewModelProvider(getActivity(), new ViewModelProvider.NewInstanceFactory()).get(BaseMlViewModel.class);
+        baseMlViewModel = new ViewModelProvider(requireActivity(), new ViewModelProvider.NewInstanceFactory()).get(BaseMlViewModel.class);
         fragmentProductDetailBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_product_detail, container, false);
         fragmentProductDetailBinding.setLifecycleOwner(this);
         fragmentProductDetailBinding.recyclerViewProductImageHorizontal.setHasFixedSize(true);
@@ -91,12 +95,14 @@ public class ProductDetailFragment extends Fragment {
         return fragmentProductDetailBinding.getRoot();
     }
 
+    @SuppressLint("SetTextI18n")
     private void updateProductDetail(){
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
 
         fragmentProductDetailBinding.txtViewProductName.setText(Html.fromHtml(baseMlViewModel.getProductDetail().title));
-        fragmentProductDetailBinding.txtViewProductPrice.setText(baseMlViewModel.getProductDetail().getPriceFormatter() != null ? "$ " + baseMlViewModel.getProductDetail().getPriceFormatter() : "");
+        baseMlViewModel.getProductDetail().getPriceFormatter();
+        fragmentProductDetailBinding.txtViewProductPrice.setText("$ " + baseMlViewModel.getProductDetail().getPriceFormatter());
         fragmentProductDetailBinding.txtViewProductWarranty.setText(baseMlViewModel.getProductDetail().warranty);
 
         RecyclerView recyclerViewPictures = fragmentProductDetailBinding.recyclerViewProductImageHorizontal;
@@ -104,7 +110,7 @@ public class ProductDetailFragment extends Fragment {
         List<ProductImage> productImageList = new ArrayList<>();
 
         if (baseMlViewModel.getProductDetail() != null) {
-            productImageList.addAll(baseMlViewModel.getProductDetail().productImages);
+            productImageList.addAll(Objects.requireNonNull(baseMlViewModel.getProductDetail().productImages));
         }
 
         ProductImageAdapter productImageAdapter = new ProductImageAdapter(productImageList);
@@ -116,7 +122,7 @@ public class ProductDetailFragment extends Fragment {
         List<ProductAttribute> productAttributeList = new ArrayList<>();
 
         if (baseMlViewModel.getProductDetail() != null) {
-            productAttributeList.addAll(baseMlViewModel.getProductDetail().productAttributes);
+            productAttributeList.addAll(Objects.requireNonNull(baseMlViewModel.getProductDetail().productAttributes));
         }
 
         ProductAttributesAdapter productAttributesAdapter = new ProductAttributesAdapter(productAttributeList);
@@ -129,7 +135,8 @@ public class ProductDetailFragment extends Fragment {
 
     private void getProductDetail() {
 
-        final Call<ProductDetail> searchListCall = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class).productDetail(baseMlViewModel.getProductSelected().id);
+        final Call<ProductDetail> searchListCall = Objects.requireNonNull(RetrofitClientInstance.getRetrofitInstance()).create(GetDataService.class).productDetail(baseMlViewModel.getProductSelected().id);
+        assert searchListCall != null;
         searchListCall.enqueue(new Callback<ProductDetail>() {
             @Override
             public void onResponse(@NotNull Call<ProductDetail> call, @NotNull retrofit2.Response<ProductDetail> response) {
@@ -151,10 +158,10 @@ public class ProductDetailFragment extends Fragment {
 
                 // Error to call, show AlertDialog from user.
                 new AlertDialog.Builder(
-                        getContext())
-                        .setTitle(Html.fromHtml(getString(R.string.alert_dialog_onFailure_call_title)))
-                        .setMessage(Html.fromHtml(getString(R.string.alert_dialog_onFailure_call_message)))
-                        .setPositiveButton(Html.fromHtml(getString(R.string.alert_dialog_onFailure_call_accepts)), null)
+                        requireContext())
+                        .setTitle(fromHtml(getString(R.string.alert_dialog_onFailure_call_title)))
+                        .setMessage(fromHtml(getString(R.string.alert_dialog_onFailure_call_message)))
+                        .setPositiveButton(fromHtml(getString(R.string.alert_dialog_onFailure_call_accepts)), null)
                         .setIcon(android.R.drawable.ic_dialog_alert) // Default icon to alert
                         .show();
             }

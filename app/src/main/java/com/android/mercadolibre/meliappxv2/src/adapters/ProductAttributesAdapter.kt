@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.mercadolibre.meliappxv2.databinding.ProductAttributesItemBinding
 import com.android.mercadolibre.meliappxv2.src.model.ProductAttribute
 
+
+
 class ProductAttributesAdapter(private val productAttributes: List<ProductAttribute>?) : RecyclerView.Adapter<ProductAttributesAdapter.ItemViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -18,8 +20,13 @@ class ProductAttributesAdapter(private val productAttributes: List<ProductAttrib
         itemViewHolder.bind(productAttribute)
     }
 
+
     override fun getItemCount(): Int {
-        return productAttributes?.size ?: 0
+        return if (productAttributes?.size!! > limitAttributes) {
+            limitAttributes
+        } else {
+            this.productAttributes.size
+        }
     }
 
     class ItemViewHolder(private val productAttributesItemBinding: ProductAttributesItemBinding) : RecyclerView.ViewHolder(productAttributesItemBinding.root) {
@@ -27,5 +34,9 @@ class ProductAttributesAdapter(private val productAttributes: List<ProductAttrib
             productAttributesItemBinding.productAttribute = productAttribute
             productAttributesItemBinding.executePendingBindings()
         }
+    }
+
+    companion object {
+        private const val limitAttributes = 12
     }
 }

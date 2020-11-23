@@ -7,6 +7,6 @@ object Constants {
     //Default limit value for paging
     const val SEARCH_LIMIT_INT = 50
 
-    // Constant Time Delay (2,5s) SplashScreen
-    const val SPLASH_DELAY = 2500
+    // Constant Time Delay (3.0s) SplashScreen
+    const val SPLASH_DELAY = 3000
 }

@@ -3,6 +3,7 @@ package com.android.mercadolibre.meliappxv2.src.ui.splash
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
@@ -25,7 +26,7 @@ class SplashScreen : AppCompatActivity() {
 
     private fun goToMainActivity() {
         // This method will take the user to main activity (productSearch)
-        Handler().postDelayed({
+        Handler(Looper.getMainLooper()).postDelayed({
             startActivity(Intent(this@SplashScreen, MainActivity::class.java))
             finish()
         }, SPLASH_DELAY.toLong()) // SPLASH_DELAY Defined in Constants

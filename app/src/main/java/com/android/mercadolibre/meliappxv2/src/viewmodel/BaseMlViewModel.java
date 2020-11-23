@@ -81,7 +81,6 @@ public class BaseMlViewModel extends ViewModel {
         return productSearchResult.getValue();
     }
 
-
     public void setProductSearchResult(ProductSearch productSearchResult) {
         this.productSearchResult.setValue(productSearchResult);
     }
