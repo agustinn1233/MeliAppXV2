@@ -6,6 +6,7 @@ import android.text.SpannableString;
 import android.text.Spanned;
 
 public class Generic {
+    // Use for format text.
     @SuppressWarnings("deprecation")
     public static Spanned fromHtml(String html){
         if(html == null){
