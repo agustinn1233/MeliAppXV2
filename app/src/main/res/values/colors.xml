@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="secundary">#fddb35</color>
+    <color name="secundary">#f5d415</color>
     <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#efdb04</color>
+    <color name="teal_700">#ffdb15</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="primary">#EFDB04</color>
+    <color name="primary">#ffdb15</color>
 
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#FFFFFF</color>

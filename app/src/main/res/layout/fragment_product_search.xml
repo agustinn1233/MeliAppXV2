@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/product_search_fragment_subTitleML"
                 android:textSize="24sp"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/colorBlack"
                 android:fontFamily="sans-serif"
                 android:layout_centerHorizontal="true"/>
 
