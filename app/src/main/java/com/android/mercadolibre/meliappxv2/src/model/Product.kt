@@ -51,8 +51,8 @@ class Product {
     }
 
     // Using fromHtml to format (in class Generic)
-    val priceFormatter: String?
-        get() = fromHtml(price)?.let { currencyFormat(it) }
+    val priceFormatter: String
+        get() = currencyFormat(fromHtml(price))
 
     // Using fromHtml to format (in class Generic)
     @JvmName("getDescription1")
