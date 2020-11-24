@@ -7,6 +7,7 @@ import android.text.Spanned
 
 object Generic {
     // Use for format text.
+    @SuppressWarnings("deprecation")
     fun fromHtml(html: String?): Spanned {
         return when {
             html == null -> {

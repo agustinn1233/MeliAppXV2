@@ -24,20 +24,20 @@ class ProductDetail {
 
     @JvmField
     @SerializedName("attributes")
-    var productAttributes: List<ProductAttribute>? = null
+    var productCharacteristics: List<ProductCharacteristics>? = null
 
     constructor()
 
     val priceFormatter: String
         get() = Product.currencyFormat(fromHtml(price))
 
-    constructor(id: String?, title: String?, price: String?, warranty: String?, productImages: List<ProductImage>?, productAttributes: List<ProductAttribute>?) {
+    constructor(id: String?, title: String?, price: String?, warranty: String?, productImages: List<ProductImage>?, productCharacteristics: List<ProductCharacteristics>?) {
         this.id = id
         this.title = title
         this.price = price
         this.warranty = warranty
         this.productImages = productImages
-        this.productAttributes = productAttributes
+        this.productCharacteristics = productCharacteristics
     }
 
     constructor(productDetailFromJson: ProductDetail) {
@@ -46,6 +46,6 @@ class ProductDetail {
         price = productDetailFromJson.price
         warranty = productDetailFromJson.warranty
         productImages = productDetailFromJson.productImages
-        productAttributes = productDetailFromJson.productAttributes
+        productCharacteristics = productDetailFromJson.productCharacteristics
     }
 }

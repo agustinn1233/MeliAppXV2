@@ -16,11 +16,11 @@ import androidx.lifecycle.ViewModelProvider.NewInstanceFactory
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.mercadolibre.meliappxv2.R
 import com.android.mercadolibre.meliappxv2.databinding.FragmentProductDetailBinding
-import com.android.mercadolibre.meliappxv2.src.adapters.ProductAttributesAdapter
+import com.android.mercadolibre.meliappxv2.src.adapters.ProductCharacteristicsAdapter
 import com.android.mercadolibre.meliappxv2.src.adapters.ProductImageAdapter
 import com.android.mercadolibre.meliappxv2.src.api.GetDataService
 import com.android.mercadolibre.meliappxv2.src.api.RetrofitClientInstance.retrofitInstance
-import com.android.mercadolibre.meliappxv2.src.model.ProductAttribute
+import com.android.mercadolibre.meliappxv2.src.model.ProductCharacteristics
 import com.android.mercadolibre.meliappxv2.src.model.ProductDetail
 import com.android.mercadolibre.meliappxv2.src.model.ProductImage
 import com.android.mercadolibre.meliappxv2.src.tools.utils.Generic
@@ -58,7 +58,7 @@ class ProductDetailFragment : Fragment() {
         fragmentProductDetailBinding?.recyclerViewProductImageHorizontal?.setHasFixedSize(true)
         fragmentProductDetailBinding?.recyclerViewProductDetail?.setHasFixedSize(true)
         fragmentProductDetailBinding?.recyclerViewProductImageHorizontal?.adapter = ProductImageAdapter(ArrayList())
-        fragmentProductDetailBinding?.recyclerViewProductDetail?.adapter = ProductAttributesAdapter(ArrayList())
+        fragmentProductDetailBinding?.recyclerViewProductDetail?.adapter = ProductCharacteristicsAdapter(ArrayList())
 
         // Using for LiveData
         val newQueryProductDetail = Observer { aBoolean: Boolean ->
@@ -94,15 +94,15 @@ class ProductDetailFragment : Fragment() {
         recyclerViewPictures.adapter = productImageAdapter
         val recyclerViewAttribute = fragmentProductDetailBinding!!.recyclerViewProductDetail
         recyclerViewAttribute.layoutManager = linearLayoutManager
-        val productAttributeList: MutableList<ProductAttribute> = ArrayList()
+        val productCharacteristicsList: MutableList<ProductCharacteristics> = ArrayList()
         if (baseMlViewModel!!.productDetail != null) {
-            (baseMlViewModel!!.productDetail.productAttributes).let {
+            (baseMlViewModel!!.productDetail.productCharacteristics).let {
                 if (it != null) {
-                    productAttributeList.addAll(it)
+                    productCharacteristicsList.addAll(it)
                 }
             }
         }
-        val productAttributesAdapter = ProductAttributesAdapter(productAttributeList)
+        val productAttributesAdapter = ProductCharacteristicsAdapter(productCharacteristicsList)
         recyclerViewAttribute.adapter = productAttributesAdapter
         fragmentProductDetailBinding!!.progressBarProductDetail.visibility = View.INVISIBLE
         fragmentProductDetailBinding!!.txtViewProductCharacteristic.visibility = View.VISIBLE

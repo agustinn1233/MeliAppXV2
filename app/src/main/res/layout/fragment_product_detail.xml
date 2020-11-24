@@ -129,7 +129,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif"
-                    android:textColor="@color/white"
+                    android:textColor="#818181"
                     android:layout_centerInParent="true"
                     android:text="@string/product_detail_product_description" />
 
@@ -145,7 +145,7 @@
                 android:background="@color/primary"
                 android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/product_attributes_item" />
+                tools:listitem="@layout/product_characteristics_item" />
 
     </LinearLayout>
 
